@@ -1,0 +1,22 @@
+function downloadImages() {
+
+  // Get the document object.
+  var document = DocumentApp.getActiveDocument();
+
+  // Get the images in the document.
+  var images = document.getBody().getImages();
+
+  // Get the folder to store the downloaded images.
+  var folder = DriveApp.getFolderById("[FOLDER ID]");
+
+  // Iterate through the images and download them to the folder.
+  for (var i = 0; i < images.length; i++) {
+    var image = images[i];
+
+    // Get the blob object for the image.
+    var blob = image.getBlob();
+
+    // Create a file in the folder with the image blob and a name.
+    var file = folder.createFile(blob.setName(`Image-${i+1}.png`));
+  }
+}
