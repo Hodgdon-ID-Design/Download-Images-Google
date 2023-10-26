@@ -1,0 +1,32 @@
+function downloadImages() {
+
+  // Get the presentation object.
+  var presentation = SlidesApp.getActivePresentation();
+
+  // Get the number of slides in the presentation.
+  var slideCount = presentation.getSlides().length;
+
+  // Get the folder to store the downloaded images.
+  var folder = DriveApp.getFolderById("[FOLDER ID]");
+
+  // Iterate through the slides in the presentation.
+  for (var i = 0; i < slideCount; i++) {
+
+    // Get the images on the current slide.
+    var images = presentation.getSlides()[i].getImages();
+
+    // Iterate through the images and download them to the folder.
+    for (var j = 0; j < images.length; j++) {
+      var image = images[j];
+
+      // Get the blob object for the image.
+      var blob = image.getBlob();
+
+      // Create a file in the folder with the image blob.
+      var file = folder.createFile(blob);
+
+      // Rename the file.
+      file.setName(`Slide-${i+1}-${j+1}.png`);
+    }
+  }
+}
